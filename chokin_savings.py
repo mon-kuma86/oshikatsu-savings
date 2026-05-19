@@ -52,6 +52,8 @@ if page == "ホーム":
     st.subheader("今日の貯金")
     saving = st.number_input("今日の貯金額", min_value=0, step=100)
 
+    date = st.date_input("貯金した日")
+
     memo = st.text_area("メモ")
 
     if st.button("記録する"):
@@ -60,8 +62,7 @@ if page == "ホーム":
 
         with open("saving_data.csv", "a", newline="") as file:
             writer = csv.writer(file)
-            today = datetime.now().strftime("%Y-%m-%d")
-            writer.writerow([today, reason, saving, memo])
+            writer.writerow([date, reason, saving, memo])
 
         total = st.session_state["total"]
         remaining = goal - total
